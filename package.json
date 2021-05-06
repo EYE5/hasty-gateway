@@ -1,0 +1,24 @@
+{
+  "name": "hasty-backend",
+  "version": "0.0.1-alpha",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "hasty"
+  ],
+  "author": "antsupov.official@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-winston": "^4.1.0",
+    "micromq": "^3.0.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1"
+  }
+}
