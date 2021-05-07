@@ -3,31 +3,16 @@ const app = express();
 const router = express.Router();
 const winston = require('winston');
 const expressWinston = require('express-winston');
+const Gateway = require('micromq/gateway');
 
-const path = __dirname + '/src/views/';
-const port = 8080;
-
-router.use(
-  expressWinston.logger({
-    transports: [new winston.transports.Console()],
-    format: winston.format.json(),
-    meta: false,
-    msg: 'HTTP  ',
-    expressFormat: true,
-    colorize: false,
-    ignoreRoute: function (req, res) {
-      return false;
-    },
-  })
-);
-
-router.get('/', function (req, res) {
-  res.sendFile(path + 'index.html');
+const app = new Gateway({
+  microservices: ['auth'],
 });
 
-app.use(express.static(path));
-app.use('/', router);
-
-app.listen(port, function () {
-  console.log(`App listening on port ${port}`);
+// создаем два эндпоинта /friends & /status на метод GET
+app.get(['/login'], async (req, res) => {
+  // делегируем запрос в микросервис users
+  await res.delegate('users');
 });
+
+app.listen(8080);
