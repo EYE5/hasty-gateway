@@ -1,12 +1,8 @@
-const express = require('express');
-const app = express();
-const router = express.Router();
-const winston = require('winston');
-const expressWinston = require('express-winston');
 const Gateway = require('micromq/gateway');
 
 const app = new Gateway({
   microservices: ['auth'],
+  url: 'amqp://hasty:superhardpassword@localhost:5682',
 });
 
 // создаем два эндпоинта /friends & /status на метод GET
