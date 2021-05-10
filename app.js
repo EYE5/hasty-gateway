@@ -3,7 +3,7 @@ const Gateway = require('micromq/gateway');
 const app = new Gateway({
   microservices: ['auth'],
   rabbit: {
-    url: 'amqp://hasty:superhardpassword@rabbitmq:5682',
+    url: 'amqp://hasty:superhardpassword@rabbitmq:5672',
   },
 });
 
