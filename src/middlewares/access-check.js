@@ -16,7 +16,7 @@ async function accessCheck(req, res, next) {
     next();
   } else {
     res.status(400);
-    res.json({ error: 'Access token expired', error: 1002 });
+    res.json({ text: 'Access token expired', error: 1002 });
 
     return;
   }
