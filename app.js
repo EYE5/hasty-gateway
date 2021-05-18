@@ -3,7 +3,7 @@ require('dotenv').config();
 const Gateway = require('micromq/gateway');
 
 //middleware
-const authCheck = require('./src/middlewares/authCheck');
+const accessCheck = require('./src/middlewares/access-check');
 
 //modules
 const authorization = require('./src/modules/authorization');
@@ -15,15 +15,11 @@ const app = new Gateway({
   },
 });
 
-app.enablePrometheus();
-
-console.log(app);
-
 app.post(['/updateTokens'], async (req, res) => {
-  await authorization.requestNewTokens(req, res, client);
+  await authorization.requestNewTokens(req, res);
 });
 
-app.get(['/test'], authCheck(client), async (req, res) => {
+app.get(['/test'], accessCheck, async (req, res) => {
   console.log(req);
   await res.delegate('auth');
 });

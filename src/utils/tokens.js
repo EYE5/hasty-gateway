@@ -51,14 +51,14 @@ async function checkRefreshToken(token) {
 /**
  *
  * @param {String} data
- * @returns {String} access-token
+ * @returns {Promise<string>} access-token
  */
 async function createAccessToken(data) {
   const accessToken = jwt.sign({ data }, 'access', { expiresIn: 1800 });
 
   redis.select(0);
 
-  redis.set(accessToken, data);
+  await redis.set(accessToken, data);
 
   redisClient.EXPIRE(accessToken, 1900);
 
@@ -68,7 +68,7 @@ async function createAccessToken(data) {
 /**
  *
  * @param {String} data
- * @returns {String} refresh-token
+ * @returns {Promise<string>} refresh-token
  */
 async function createRefreshToken(data) {
   const refreshToken = jwt.sign({ data }, 'refresh', { expiresIn: 432000 });
