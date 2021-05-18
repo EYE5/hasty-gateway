@@ -20,7 +20,6 @@ app.post(['/api/updateTokens'], async (req, res) => {
 });
 
 app.get(['/api/test'], accessCheck, async (req, res) => {
-  console.log(req);
   res.json({ status: 'ok' });
 });
 
