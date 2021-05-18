@@ -15,13 +15,13 @@ const app = new Gateway({
   },
 });
 
-app.post(['/updateTokens'], async (req, res) => {
+app.post(['/api/updateTokens'], async (req, res) => {
   await authorization.requestNewTokens(req, res);
 });
 
-app.get(['/test'], accessCheck, async (req, res) => {
+app.get(['/api/test'], accessCheck, async (req, res) => {
   console.log(req);
-  await res.delegate('auth');
+  res.json({ status: 'ok' });
 });
 
 console.log('App listen on port 8045');

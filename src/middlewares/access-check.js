@@ -6,6 +6,8 @@ async function accessCheck(req, res, next) {
   if (!token) {
     res.status(400);
     res.json({ text: 'Invalid token', code: 1002 });
+
+    return;
   }
 
   const isAccessTokenValid = await tokens.checkAccessToken(token);
@@ -15,6 +17,8 @@ async function accessCheck(req, res, next) {
   } else {
     res.status(400);
     res.json({ error: 'Access token expired', error: 1002 });
+
+    return;
   }
 }
 

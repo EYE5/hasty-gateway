@@ -7,11 +7,19 @@ const tokens = require('../utils/tokens');
 async function requestNewAccessToken(req, res) {
   const refreshToken = req.body.refreshToken;
 
+  if (!refreshToken) {
+    res.status(400);
+    res.json({ error: 'Wrong refresh token', code: 1003 });
+
+    return;
+  }
+
   const isRefreshTokenValid = await tokens.checkRefreshToken(refreshToken);
 
   if (!isRefreshTokenValid) {
     res.status(400);
     res.json({ error: 'Wrong refresh token', code: 1003 });
+
     return;
   }
 
@@ -20,6 +28,8 @@ async function requestNewAccessToken(req, res) {
   if (!data) {
     res.status(400);
     res.json({ error: 'Invalid username', code: 1000 });
+
+    return;
   }
 
   const accessToken = await tokens.createAccessToken(data);
@@ -34,6 +44,8 @@ async function requestNewTokens(req, res) {
   if (!data) {
     res.status(400);
     res.json({ error: 'Invalid username', code: 1000 });
+
+    return;
   }
 
   const accessToken = await tokens.createAccessToken(data);

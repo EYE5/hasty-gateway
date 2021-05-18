@@ -8,7 +8,7 @@ const redis = require('./redisUtils/commands');
 async function checkAccessToken(token) {
   redis.select(0);
 
-  const res = await redis.getAsync(token);
+  const res = await redis.get(token);
 
   if (res) {
     try {
@@ -32,7 +32,7 @@ async function checkAccessToken(token) {
 async function checkRefreshToken(token) {
   redis.select(1);
 
-  const res = await redis.getAsync(token);
+  const res = await redis.get(token);
 
   if (res) {
     try {
@@ -60,7 +60,7 @@ async function createAccessToken(data) {
 
   await redis.set(accessToken, data);
 
-  redisClient.EXPIRE(accessToken, 1900);
+  redis.expire(accessToken, 1900);
 
   return accessToken;
 }
@@ -75,9 +75,9 @@ async function createRefreshToken(data) {
 
   redis.select(1);
 
-  await set(refreshToken, data);
+  await redis.set(refreshToken, data);
 
-  redisClient.EXPIRE(refreshToken, 432100);
+  redis.expire(refreshToken, 432100);
 
   return refreshToken;
 }

@@ -2,9 +2,9 @@ const { promisify } = require('util');
 const redisClient = require('./redis-client');
 
 async function get(key) {
-  const getAsync = promisify(redisClient.get).bind(redisClient);
+  const get = promisify(redisClient.get).bind(redisClient);
 
-  return getAsync(key);
+  return get(key);
 }
 
 function select(database) {
@@ -12,13 +12,18 @@ function select(database) {
 }
 
 async function set(key, value) {
-  const set = promisify(redisClient.get).bind(redisClient);
+  const set = promisify(redisClient.set).bind(redisClient);
 
   await set(key, value);
+}
+
+function expire(key, value) {
+  redisClient.EXPIRE(key, value);
 }
 
 module.exports = {
   get,
   select,
   set,
+  expire,
 };
