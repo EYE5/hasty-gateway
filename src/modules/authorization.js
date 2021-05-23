@@ -23,11 +23,11 @@ async function requestNewAccessToken(req, res) {
     return;
   }
 
-  const data = req.body.username;
+  const data = req.body.id;
 
   if (!data) {
     res.status(400);
-    res.json({ error: 'Invalid username', code: 1000 });
+    res.json({ error: 'Invalid id', code: 1000 });
 
     return;
   }

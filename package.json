@@ -12,6 +12,7 @@
   "author": "antsupov.official@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "jsonwebtoken": "^8.5.1",
     "micromq": "^3.0.2",
